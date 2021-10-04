@@ -1,10 +1,9 @@
 import json
+from functools import wraps
 
 
 def to_json(function_to_decorate):
-    # Внутри себя декоратор определяет функцию-"обертку". Она будет обернута вокруг декорируемой,
-    # получая возможность исполнять произвольный код до и после нее.
-    # обёртка для вызываемых функций
+    @wraps(function_to_decorate)
     def to_json_wrapper(*args, **kwargs):
         # результат вызова оригинальной функции
         original_result = function_to_decorate(*args, **kwargs)
@@ -54,3 +53,4 @@ if __name__ == '__main__':
     print(get_complex_data())
     print(get_sum_of_two(11, 31))
     print(get_sum_of_all(1, 2, 3, 4))
+    print(get_data.__name__)
